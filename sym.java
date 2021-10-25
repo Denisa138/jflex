@@ -1,7 +1,5 @@
 
 public interface sym {
-//  public static final int error = -1;
-//  public static final int EOF = 0;
   public static final int SEMI = 1;
   public static final int OBRACKET = 2;
   public static final int CBRACKET = 3;
@@ -45,6 +43,10 @@ public interface sym {
   public static final int RETURN = 41;
   public static final int ID = 42;
   public static final int NumericConstant = 43;
+  public static final int PROG = 44;
+  public static final int ENDPROG = 45;
+  public static final int FUNC = 46;
+  public static final int ENDFUNC = 47;
   public static final int EOF = 0;
   public static final int error = -1;
 }

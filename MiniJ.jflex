@@ -36,12 +36,12 @@ String = "\"" ~"\""
 
 Identifier = [:jletter:][:jletterdigit:]*
 
-ident = ([:jletter:] | "_" ) ([:jletterdigit:] | [:jletter:] | "_" )*
 
 NumericConstant = [0-9]+
 
 %%
 <YYINITIAL> {
+    {WhiteSpace} { /* Ignore */ }
     ";" { return symbol(SEMI); }
     "(" { return symbol(OBRACKET); }
     ")" { return symbol(CBRACKET); }
@@ -51,6 +51,7 @@ NumericConstant = [0-9]+
     "-" { return symbol(SUB); }
     "*" { return symbol(MULT); }
     "/" { return symbol(DIV); }
+/**/
     "**" { return symbol(POW); }
     "%" { return symbol(MOD); }
     "and" { return symbol(AND); }
@@ -83,10 +84,15 @@ NumericConstant = [0-9]+
     "to" { return symbol(TO); }
     "endfor" { return symbol(EFOR); }
     "return" { return symbol(RETURN); }
+    "program" { return symbol(PROG); }
+    "endprogram" { return symbol(ENDPROG); }
+    "function" { return symbol(FUNC); }
+    "endfunction" { return symbol(ENDFUNC); }
+
    {Comment} {}
    {String}  { System.out.println("STRING"); }
    {Identifier} { return symbol(ID, yytext());}
-   {WhiteSpace} { /* Ignore */ }
+
    {NumericConstant} {System.out.println("number");}
+   .|\n { System.out.println("ERROR");error(yytext());}
  }
-.|\n { System.out.println("ERROR");error(yytext());}
